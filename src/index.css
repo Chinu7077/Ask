@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@layer base {
+  :root {
+    --background: 20 30% 97%;
+    --foreground: 350 20% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 350 20% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 350 20% 20%;
+
+    --primary: 350 60% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 20 20% 92%;
+    --secondary-foreground: 350 20% 25%;
+
+    --muted: 20 15% 94%;
+    --muted-foreground: 350 10% 50%;
+
+    --accent: 350 50% 94%;
+    --accent-foreground: 350 60% 40%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 20 20% 90%;
+    --input: 20 20% 88%;
+    --ring: 350 60% 56%;
+
+    --radius: 1rem;
+
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
