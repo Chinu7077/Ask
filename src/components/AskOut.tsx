@@ -12,6 +12,7 @@ import {
   PartyPopper,
   SmilePlus,
 } from "lucide-react";
+import { Instagram, Github, Twitter, Linkedin } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
@@ -517,9 +518,52 @@ export default function AskOut() {
       </AnimatePresence>
 
       {/* Footer */}
-      <p className="absolute bottom-4 text-xs text-muted-foreground text-center leading-relaxed">
-        Code & Creativity by Chinu ✨ <br />© 2026 Chinu. All rights reserved.
-      </p>
+      <div className="absolute bottom-4 flex flex-col items-center gap-2 text-xs text-muted-foreground">
+
+  {/* Social Icons */}
+  <div className="flex gap-4">
+  <a
+    href="https://www.instagram.com/chinuuu______________/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="no-underline"
+  >
+    <Instagram className="w-5 h-5 hover:text-pink-500 transition hover:scale-110" />
+  </a>
+
+  <a
+    href="https://github.com/Chinu7077"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="no-underline"
+  >
+    <Github className="w-5 h-5 hover:text-white transition hover:scale-110" />
+  </a>
+
+  <a
+    href="https://twitter.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="no-underline"
+  >
+    <Twitter className="w-5 h-5 hover:text-blue-400 transition hover:scale-110" />
+  </a>
+
+  <a
+    href="https://www.linkedin.com/in/chinmaya-nayak-09226317b/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="no-underline"
+  >
+    <Linkedin className="w-5 h-5 hover:text-blue-600 transition hover:scale-110" />
+  </a>
+</div>
+
+  {/* Text */}
+  <p className="text-center leading-relaxed">
+    Code & Creativity by Chinu ✨ <br />© 2026 Chinu. All rights reserved.
+  </p>
+</div>
     </div>
   );
 }
