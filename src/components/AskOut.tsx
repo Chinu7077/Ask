@@ -15,6 +15,11 @@ import {
 import { Instagram, Github, Twitter, Linkedin } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
 
 const PLACES = [
   { id: "cafe", label: "Cafe", emoji: "☕" },
@@ -55,6 +60,13 @@ export default function AskOut() {
     "Last chance 😬",
     "Are you sure?🥺",
   ];
+  const noSounds = [
+  "no1.mp3",
+  "no2.mp3",
+  "no3.mp3",
+  "no4.mp3",
+  "no5.mp3",
+];
 
   const [darkMode, setDarkMode] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -84,7 +96,8 @@ export default function AskOut() {
   const handleNo = useCallback(() => {
     if (noFrozen) return;
 
-    playSound("No3.mp3");
+   const sound = noSounds[noTextIndex]; // ✅ add
+  playSound(sound);
 
     setNoTextIndex((prev) => (prev + 1) % noTexts.length); // 🔥 yeh add
 
@@ -97,7 +110,7 @@ export default function AskOut() {
   const handleYes = useCallback(() => {
     if (!name.trim()) return;
 
-    playSound("YaYaYa.mp3"); // 🔥 add
+    playSound("ThankYou.mp3"); // 🔥 add
 
     setStep(1);
   }, [name]);
@@ -106,20 +119,37 @@ export default function AskOut() {
   const dateString = date ? format(date, "PPP") : "";
 
   const handleWhatsApp = () => {
-    playSound("ThankYou.mp3"); // 🔥 sound
+  playSound("Maza.mp3");
 
-    const msg = encodeURIComponent(
-      `Hey Chinu, I’ve confirmed the place, date, and time.\n\n📍 Place: ${
-        place === "custom"
-          ? customPlace
-          : PLACES.find((p) => p.id === place)?.label
-      }\n📅 Date: ${dateString}\n⏰ Time: ${timeString}\n\nLet me know if everything looks good or if you’d like to change anything.`,
-    );
+  // 🔥 TRACK EVENT (optional)
+  if (typeof window !== "undefined" && window.gtag) {
+  window.gtag("event", "whatsapp_clicked", {
+    place: place,
+    date: dateString,
+  });
+}
 
-    setTimeout(() => {
-      window.open(`https://wa.me/917077863178?text=${msg}`, "_blank");
-    }, 1000);
-  };
+  const msg = encodeURIComponent(
+    `Hey Chinu, I’ve confirmed the place, date, and time.\n\n 📍 Place: ${
+      place === "custom"
+        ? customPlace
+        : PLACES.find((p) => p.id === place)?.label
+    }\n 📅 Date: ${dateString}\n ⏰ Time: ${timeString}\n\nLet me know if everything looks good or if you’d like to change anything.`
+  );
+
+  const phone = "917077863178";
+
+  // 🔥 DEVICE DETECT
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  const url = isMobile
+    ? `whatsapp://send?phone=${phone}&text=${msg}` // 📱 App open
+    : `https://web.whatsapp.com/send?phone=${phone}&text=${msg}`; // 💻 Web
+
+ setTimeout(() => {
+  window.open(url, "_blank");
+}, 4000); // 4 seconds delay
+};
 
   const BackButton = ({ onClick }: { onClick: () => void }) => (
     <button
